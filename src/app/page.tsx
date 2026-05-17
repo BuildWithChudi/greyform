@@ -1,10 +1,13 @@
 import Hero from "@/components/sections/Hero";
+import Philosophy from "@/components/sections/Philosophy";
+import ServicesPreview from "@/components/sections/ServicesPreview";
 
 export default function Home() {
   return (
     <>
       <Hero />
-      <div className="h-[100vh]" aria-hidden />
+      <Philosophy />
+      <ServicesPreview />
     </>
   );
 }
