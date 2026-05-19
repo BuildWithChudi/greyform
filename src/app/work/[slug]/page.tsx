@@ -6,6 +6,11 @@ import {
   getCaseStudyIndex,
   getNextCaseStudy,
 } from "@/data/work";
+import {
+  JsonLd,
+  breadcrumbSchema,
+  caseStudySchema,
+} from "@/components/JsonLd";
 import CaseStudyView from "./CaseStudyView";
 
 type Params = { slug: string };
@@ -44,5 +49,25 @@ export default function CaseStudyPage({ params }: { params: Params }) {
   const index = getCaseStudyIndex(params.slug);
   const next = getNextCaseStudy(params.slug);
 
-  return <CaseStudyView cs={cs} indexNumber={index + 1} next={next} />;
+  const crumbs = breadcrumbSchema([
+    { name: "Home", item: "https://greyform.org" },
+    { name: "Work", item: "https://greyform.org/work" },
+    { name: cs.client, item: `https://greyform.org/work/${cs.slug}` },
+  ]);
+  const work = caseStudySchema({
+    slug: cs.slug,
+    client: cs.client,
+    title: cs.title,
+    summary: cs.summary,
+    year: cs.year,
+    cover: cs.cover,
+    liveUrl: cs.liveUrl,
+  });
+
+  return (
+    <>
+      <JsonLd data={[crumbs, work]} />
+      <CaseStudyView cs={cs} indexNumber={index + 1} next={next} />
+    </>
+  );
 }

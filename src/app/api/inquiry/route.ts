@@ -15,6 +15,35 @@ export const dynamic = "force-dynamic";
 
 const REF_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 
+// Simple per-IP token bucket. Survives within a single warm serverless
+// instance; on Vercel that's enough to slow opportunistic spam. For higher
+// guarantees, swap for an Upstash Redis or @vercel/kv backed store.
+const RATE_LIMIT_WINDOW_MS = 60_000;
+const RATE_LIMIT_MAX = 4;
+const rateLimitBuckets = new Map<string, { count: number; reset: number }>();
+
+function clientIp(req: NextRequest): string {
+  const fwd = req.headers.get("x-forwarded-for");
+  if (fwd) return fwd.split(",")[0]!.trim();
+  return req.headers.get("x-real-ip")?.trim() || "unknown";
+}
+
+function checkRateLimit(ip: string): { ok: true } | { ok: false; retryAfter: number } {
+  const now = Date.now();
+  const bucket = rateLimitBuckets.get(ip);
+  if (!bucket || bucket.reset < now) {
+    rateLimitBuckets.set(ip, { count: 1, reset: now + RATE_LIMIT_WINDOW_MS });
+    return { ok: true };
+  }
+  if (bucket.count >= RATE_LIMIT_MAX) {
+    return { ok: false, retryAfter: Math.ceil((bucket.reset - now) / 1000) };
+  }
+  bucket.count += 1;
+  return { ok: true };
+}
+
+const MAX_PAYLOAD_BYTES = 16 * 1024;
+
 function generateRef(): string {
   let out = "";
   const bytes = new Uint8Array(6);
@@ -30,6 +59,30 @@ function firstName(name: string): string {
 }
 
 export async function POST(req: NextRequest) {
+  const ip = clientIp(req);
+  const rl = checkRateLimit(ip);
+  if (!rl.ok) {
+    return NextResponse.json(
+      {
+        ok: false,
+        error: "Too many requests. Try again in a minute, or email me directly.",
+      },
+      {
+        status: 429,
+        headers: { "Retry-After": String(rl.retryAfter) },
+      }
+    );
+  }
+
+  // Reject obviously oversized payloads before parsing JSON.
+  const contentLength = Number(req.headers.get("content-length") || 0);
+  if (contentLength > MAX_PAYLOAD_BYTES) {
+    return NextResponse.json(
+      { ok: false, error: "Payload too large." },
+      { status: 413 }
+    );
+  }
+
   let body: unknown;
   try {
     body = await req.json();
@@ -53,6 +106,11 @@ export async function POST(req: NextRequest) {
   }
 
   const inquiry = parsed.data;
+
+  // Honeypot tripped — silently 200 so the bot thinks it succeeded.
+  if (inquiry.website && inquiry.website.length > 0) {
+    return NextResponse.json({ ok: true, ref: "OK" });
+  }
   const ref = generateRef();
   const submittedAt = new Date().toISOString().replace("T", " ").slice(0, 16) + " UTC";
 

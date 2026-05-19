@@ -1,9 +1,15 @@
 import type { Metadata } from "next";
 import AboutView from "./AboutView";
-import { JsonLd, personSchema } from "@/components/JsonLd";
+import {
+  JsonLd,
+  breadcrumbSchema,
+  personSchema,
+} from "@/components/JsonLd";
 
 const DESCRIPTION =
   "Greyform is a Lagos web design and development studio building distinctive, performant websites for businesses, schools, and creators. Founded and led by Chudi Ofoma. Working globally.";
+
+const OG_ALT = "About Greyform — a Lagos web design & development studio.";
 
 export const metadata: Metadata = {
   title: "About",
@@ -13,14 +19,27 @@ export const metadata: Metadata = {
     title: "About · Greyform",
     description: DESCRIPTION,
     url: "https://greyform.org/about",
+    images: [
+      { url: "/opengraph-image", width: 1200, height: 630, alt: OG_ALT },
+    ],
   },
-  twitter: { title: "About · Greyform", description: DESCRIPTION },
+  twitter: {
+    card: "summary_large_image",
+    title: "About · Greyform",
+    description: DESCRIPTION,
+    images: [{ url: "/opengraph-image", alt: OG_ALT }],
+  },
 };
+
+const crumbs = breadcrumbSchema([
+  { name: "Home", item: "https://greyform.org" },
+  { name: "About", item: "https://greyform.org/about" },
+]);
 
 export default function AboutPage() {
   return (
     <>
-      <JsonLd data={personSchema} />
+      <JsonLd data={[personSchema, crumbs]} />
       <AboutView />
     </>
   );

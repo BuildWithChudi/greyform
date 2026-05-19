@@ -13,11 +13,13 @@ const NAV_LINKS = [
   { href: "/start", label: "Start a project" },
 ];
 
+// The studio's identity is Chudi's identity — link the profiles he actually
+// runs. If you spin up a separate @greyform brand later, swap these in.
 const SOCIAL_LINKS = [
-  { href: "https://twitter.com/greyform", label: "Twitter / X" },
-  { href: "https://instagram.com/greyform", label: "Instagram" },
-  { href: "https://github.com/greyform", label: "GitHub" },
-  { href: "https://read.cv/greyform", label: "Read.cv" },
+  { href: "https://x.com/chudiofoma", label: "X (Twitter)" },
+  { href: "https://www.linkedin.com/in/chudiofoma", label: "LinkedIn" },
+  { href: "https://instagram.com/chudiofoma", label: "Instagram" },
+  { href: "https://github.com/ochudi", label: "GitHub" },
 ];
 
 function CopyEmail() {
@@ -170,7 +172,7 @@ export default function Footer() {
                   <a
                     href={l.href}
                     target="_blank"
-                    rel="noreferrer"
+                    rel="noopener noreferrer me"
                     data-cursor="hover"
                     className="group inline-flex items-baseline gap-2 text-fluid-base text-fg/85 transition-colors hover:text-fg"
                   >

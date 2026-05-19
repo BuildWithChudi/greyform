@@ -55,6 +55,8 @@ export const inquirySchema = z.object({
     .email("That doesn't look like a valid email."),
   company: z.string().trim().max(120).optional().or(z.literal("")),
   location: z.string().trim().max(120).optional().or(z.literal("")),
+  // Honeypot — humans never see it, bots fill anything. Must be empty.
+  website: z.string().max(0).optional().or(z.literal("")),
 });
 
 export type InquiryInput = z.infer<typeof inquirySchema>;

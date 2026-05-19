@@ -63,6 +63,7 @@ export default function StartForm() {
       email: "",
       company: "",
       location: "",
+      website: "",
     },
   });
 
@@ -142,6 +143,27 @@ export default function StartForm() {
             noValidate
             className="mt-14"
           >
+            {/* Honeypot — hidden from humans, visible to naive bots. */}
+            <div
+              aria-hidden="true"
+              style={{
+                position: "absolute",
+                left: "-10000px",
+                top: "auto",
+                width: 1,
+                height: 1,
+                overflow: "hidden",
+              }}
+            >
+              <label htmlFor="website">Website</label>
+              <input
+                id="website"
+                type="text"
+                tabIndex={-1}
+                autoComplete="off"
+                {...methods.register("website")}
+              />
+            </div>
             <div className="relative overflow-hidden">
               <AnimatePresence mode="wait" custom={direction} initial={false}>
                 <motion.div

@@ -36,6 +36,11 @@ const jetbrainsMono = JetBrains_Mono({
 const DEFAULT_TITLE = "Greyform · Web design & development studio, Lagos";
 const DEFAULT_DESCRIPTION =
   "Greyform is a Lagos-based web design and development studio. We build distinctive, performant websites for businesses, schools, and creators. Working globally.";
+const OG_ALT = "Greyform — web design & development studio, Lagos.";
+
+// Token is rendered in the HTML anyway, but read server-side to avoid
+// inlining it into the client bundle when it's set.
+const googleVerification = process.env.GOOGLE_SITE_VERIFICATION;
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://greyform.org"),
@@ -49,14 +54,16 @@ export const metadata: Metadata = {
   creator: "Chudi Ofoma",
   publisher: "Greyform (KeyPass Solutions)",
   keywords: [
+    "Greyform",
+    "Greyform studio",
+    "Greyform Lagos",
+    "Chudi Ofoma",
     "web design studio Lagos",
     "web development Nigeria",
     "Next.js development studio",
-    "premium website design",
+    "premium website design Lagos",
     "Lagos web design agency",
     "editorial website design",
-    "Greyform",
-    "Greyform studio",
   ],
   category: "design",
   alternates: {
@@ -64,17 +71,29 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    locale: "en_US",
+    locale: "en_NG",
+    alternateLocale: ["en_GB", "en_US"],
     url: "https://greyform.org",
     siteName: "Greyform",
     title: DEFAULT_TITLE,
     description: DEFAULT_DESCRIPTION,
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: OG_ALT,
+        type: "image/png",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: DEFAULT_TITLE,
     description: DEFAULT_DESCRIPTION,
+    site: "@chudiofoma",
     creator: "@chudiofoma",
+    images: [{ url: "/opengraph-image", alt: OG_ALT }],
   },
   robots: {
     index: true,
@@ -87,11 +106,11 @@ export const metadata: Metadata = {
       "max-video-preview": -1,
     },
   },
-  verification: {
-    // TODO: replace with the verification code from Google Search Console
-    // (Property → Settings → Ownership verification → HTML tag).
-    google: "REPLACE_WITH_GOOGLE_SEARCH_CONSOLE_TOKEN",
-  },
+  // Set NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION in env to emit the GSC meta tag.
+  // Left undefined here so no broken placeholder ships to production.
+  ...(googleVerification
+    ? { verification: { google: googleVerification } }
+    : {}),
   manifest: "/site.webmanifest",
   icons: {
     icon: [
@@ -100,6 +119,11 @@ export const metadata: Metadata = {
       { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
     ],
     apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
+  },
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
   },
 };
 
