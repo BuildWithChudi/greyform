@@ -38,9 +38,12 @@ const DEFAULT_DESCRIPTION =
   "Greyform is a Lagos-based web design and development studio. We build distinctive, performant websites for businesses, schools, and creators. Working globally.";
 const OG_ALT = "Greyform — web design & development studio, Lagos.";
 
-// Token is rendered in the HTML anyway, but read server-side to avoid
-// inlining it into the client bundle when it's set.
-const googleVerification = process.env.GOOGLE_SITE_VERIFICATION;
+// Google Search Console verification token. Not a secret — it ships in the
+// rendered HTML by design. Env var overrides the committed value so a future
+// re-verification can be done without a code change.
+const googleVerification =
+  process.env.GOOGLE_SITE_VERIFICATION ??
+  "0SZeHnc-mTv_sn-qfa4VRt9-apwlhjk3VOsb5OlVMqo";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://greyform.org"),
