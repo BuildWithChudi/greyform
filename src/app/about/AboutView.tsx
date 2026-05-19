@@ -345,6 +345,20 @@ export default function AboutView() {
               Or email hello@greyform.org
             </a>
           </motion.div>
+
+          <motion.p
+            variants={sectionLine}
+            className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-muted"
+          >
+            Call or WhatsApp{" "}
+            <a
+              href="tel:+2347062200791"
+              data-cursor="hover"
+              className="text-fg underline underline-offset-4 decoration-fg/30 hover:decoration-fg"
+            >
+              +234 706 220 0791
+            </a>
+          </motion.p>
         </motion.div>
       </section>
     </>

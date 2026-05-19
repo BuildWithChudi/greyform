@@ -2,6 +2,7 @@ import Hero from "@/components/sections/Hero";
 import Philosophy from "@/components/sections/Philosophy";
 import ServicesPreview from "@/components/sections/ServicesPreview";
 import SelectedWork from "@/components/sections/SelectedWork";
+import Testimonials from "@/components/sections/Testimonials";
 import FinalCTA from "@/components/sections/FinalCTA";
 
 export default function Home() {
@@ -11,6 +12,7 @@ export default function Home() {
       <Philosophy />
       <ServicesPreview />
       <SelectedWork />
+      <Testimonials />
       <FinalCTA />
     </>
   );

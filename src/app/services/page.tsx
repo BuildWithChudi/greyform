@@ -6,6 +6,7 @@ import {
   faqSchema,
   serviceSchemas,
 } from "@/components/JsonLd";
+import { SERVICES_FAQS } from "@/data/faqs";
 
 const DESCRIPTION =
   "Three ways to work with Greyform: custom websites, redesigns, and web applications. Bespoke design and development, built from scratch and performance-first. Lagos-based, working globally.";
@@ -37,35 +38,10 @@ const crumbs = breadcrumbSchema([
   { name: "Services", item: "https://greyform.org/services" },
 ]);
 
-// FAQs mirror real client questions. Keep the wording aligned with copy
-// elsewhere on the page so Google considers the answers genuine.
-const faqs = faqSchema([
-  {
-    question: "Where is Greyform based, and do you work with clients outside Nigeria?",
-    answer:
-      "Greyform is based in Lagos, Nigeria, and works with clients globally. Time zone is GMT+1; we run async-friendly and reply within 48 hours.",
-  },
-  {
-    question: "How much does a website from Greyform cost?",
-    answer:
-      "Custom websites start from £1,500 (about ₦2.4M). Redesigns start from £900 (about ₦1.4M). Web applications are quoted on scope after a discovery session.",
-  },
-  {
-    question: "How long does a project take?",
-    answer:
-      "Most marketing sites ship in three to six weeks from kickoff. Redesigns are typically faster. Larger product builds are scoped per engagement.",
-  },
-  {
-    question: "Do you use templates or themes?",
-    answer:
-      "No. Every site is designed from a blank file and hand-coded on Next.js, TypeScript, and Tailwind. The result is yours, performant, and easy to maintain.",
-  },
-  {
-    question: "Who actually does the work?",
-    answer:
-      "Chudi Ofoma — Greyform's founder and creative director — leads design and engineering on every project. You speak to the person building the site.",
-  },
-]);
+// FAQ JSON-LD and the visible FAQ section on /services share one data source,
+// because Google only honours the FAQ rich result when the structured answer
+// text appears verbatim on the page.
+const faqs = faqSchema(SERVICES_FAQS);
 
 export default function ServicesPage() {
   return (

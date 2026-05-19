@@ -21,10 +21,12 @@ const HEADLINE: Token[] = [
   { text: "AI." },
 ];
 
+// Keep evergreen — no calendar dates that will rot. The pulse dot signals
+// "live" so the panel reads as current without needing a refresh.
 const NOW_ITEMS = [
-  { label: "Currently shipping ipheclan.com", pulse: true },
-  { label: "New case study: Whitesands School", pulse: false },
-  { label: "Booking projects from July 2026", pulse: false },
+  { label: "Booking new projects", pulse: true },
+  { label: "Latest case study: Whitesands School", pulse: false },
+  { label: "Replies within 48 hours", pulse: false },
 ];
 
 const wordVariants = {

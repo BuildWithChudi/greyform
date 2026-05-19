@@ -81,6 +81,20 @@ export default function FinalCTA() {
             hello@greyform.org
           </a>
         </motion.p>
+
+        <motion.p
+          variants={line}
+          className="mt-3 font-mono text-fluid-xs text-muted"
+        >
+          Call or WhatsApp{" "}
+          <a
+            href="tel:+2347062200791"
+            data-cursor="hover"
+            className="text-fg underline underline-offset-4 decoration-fg/30 hover:decoration-fg"
+          >
+            +234 706 220 0791
+          </a>
+        </motion.p>
       </motion.div>
     </section>
   );

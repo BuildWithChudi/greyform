@@ -232,8 +232,14 @@ export default function Nav() {
                   >
                     hello@greyform.org
                   </a>
+                  <a
+                    href="tel:+2347062200791"
+                    className="mt-1 block text-fluid-base text-fg/85 underline underline-offset-4 decoration-fg/20"
+                  >
+                    +234 706 220 0791
+                  </a>
                   <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.22em] text-muted">
-                    Lagos · NG
+                    Lagos · NG · WhatsApp
                   </p>
                 </div>
                 <ThemeToggle />

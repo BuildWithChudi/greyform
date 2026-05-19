@@ -5,6 +5,9 @@ import Link from "next/link";
 import { Copy, Check } from "lucide-react";
 
 const EMAIL = "hello@greyform.org";
+const PHONE_DISPLAY = "+234 706 220 0791";
+const PHONE_TEL = "+2347062200791";
+const WHATSAPP_URL = "https://wa.me/2347062200791";
 
 const NAV_LINKS = [
   { href: "/work", label: "Work" },
@@ -121,6 +124,26 @@ export default function Footer() {
 
             <div className="mt-8 md:mt-10">
               <CopyEmail />
+              <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[10px] uppercase tracking-[0.22em] text-muted">
+                <a
+                  href={`tel:${PHONE_TEL}`}
+                  data-cursor="hover"
+                  className="text-fg/85 transition-colors hover:text-fg"
+                  aria-label={`Call ${PHONE_DISPLAY}`}
+                >
+                  {PHONE_DISPLAY}
+                </a>
+                <span aria-hidden className="inline-block h-px w-3 bg-line" />
+                <a
+                  href={WHATSAPP_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-cursor="hover"
+                  className="text-fg/85 transition-colors hover:text-fg"
+                >
+                  WhatsApp
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -192,7 +215,7 @@ export default function Footer() {
             <ul className="mt-4 space-y-2.5 text-fluid-base text-fg/85">
               <li className="flex items-baseline gap-2">
                 <span className="inline-block h-1.5 w-1.5 rounded-full bg-fg" aria-hidden />
-                Booking from July 2026
+                Booking new projects
               </li>
               <li className="text-muted">Replies within 48 hours</li>
               <li className="text-muted">Working globally · GMT+1</li>

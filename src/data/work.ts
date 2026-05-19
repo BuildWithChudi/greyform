@@ -46,10 +46,16 @@ export type CaseStudy = {
   outcome?: Outcome;
   gallery?: readonly GalleryImage[];
   testimonial?: Testimonial;
+
+  // Set `true` while the writeup or imagery isn't ready. Draft entries are
+  // filtered out of every public list, route, and sitemap — flip to `false`
+  // (or remove the field) to ship.
+  draft?: boolean;
 };
 
-// Ordered newest-first; index drives the "01", "02" labels.
-export const CASE_STUDIES: readonly CaseStudy[] = [
+// Full set, including in-progress writeups. Kept private so draft entries
+// never leak into a public list or sitemap by accident.
+const ALL_CASE_STUDIES: readonly CaseStudy[] = [
   {
     slug: "whitesands",
     client: "Whitesands School",
@@ -83,10 +89,12 @@ export const CASE_STUDIES: readonly CaseStudy[] = [
         { value: "4 → 12", label: "Pages" },
       ],
     },
-    // Gallery left empty for now — will populate once additional screenshots are exported.
+    // Drop the real quote and attribution here once you have it from the
+    // principal or comms lead — the rendering in CaseStudyView and the
+    // homepage TestimonialStrip light up automatically.
     // testimonial: {
-    //   quote: "…",
-    //   attribution: "Name, Role · Whitesands School",
+    //   quote: "Greyform took our admissions site from a liability to the part of the school we're proudest to show parents.",
+    //   attribution: "Mrs. <Name>, Principal · Whitesands School",
     // },
   },
   {
@@ -104,9 +112,17 @@ export const CASE_STUDIES: readonly CaseStudy[] = [
     role: "Design + Development",
     timeline: "3 weeks",
     stack: ["Next.js", "Tailwind", "GSAP", "Vercel"],
-    // Detailed writeup pending — see CaseStudyView for the "coming soon" rendering.
+    // Hidden from /work, sitemap, and route generation until the writeup
+    // and screenshot set are finalized. Flip `draft` to false to ship.
+    draft: true,
   },
 ];
+
+// Public list — drafts removed. Use this everywhere (homepage, /work, sitemap,
+// case study routing). Order is preserved.
+export const CASE_STUDIES: readonly CaseStudy[] = ALL_CASE_STUDIES.filter(
+  (c) => !c.draft
+);
 
 export function getCaseStudy(slug: string): CaseStudy | undefined {
   return CASE_STUDIES.find((c) => c.slug === slug);
@@ -121,3 +137,18 @@ export function getNextCaseStudy(slug: string): CaseStudy | undefined {
   if (i < 0) return undefined;
   return CASE_STUDIES[(i + 1) % CASE_STUDIES.length];
 }
+
+// Aggregated quotes for the homepage strip. Pulls from case studies that have
+// a `testimonial` set — no duplicate source of truth, so a quote you add to a
+// case study automatically appears on the homepage too.
+export type HomeTestimonial = Testimonial & {
+  client: string;
+  slug: string;
+};
+
+export const TESTIMONIALS: readonly HomeTestimonial[] = CASE_STUDIES.flatMap(
+  (cs) =>
+    cs.testimonial
+      ? [{ ...cs.testimonial, client: cs.client, slug: cs.slug }]
+      : []
+);

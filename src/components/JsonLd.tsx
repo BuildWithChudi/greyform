@@ -12,6 +12,8 @@ const SITE_URL = "https://greyform.org";
 const EMAIL = "hello@greyform.org";
 const LOGO_URL = `${SITE_URL}/android-chrome-512x512.png`;
 const OG_URL = `${SITE_URL}/opengraph-image`;
+// E.164 format — Google and Apple both expect this for telephone fields.
+const PHONE_E164 = "+2347062200791";
 
 // Public profile URLs for Chudi — the studio's identity is his identity.
 // Replace any handle that isn't actually owned to keep E-E-A-T signals truthful.
@@ -49,14 +51,25 @@ export const organizationSchema = {
     addressRegion: "Lagos",
     addressCountry: "NG",
   },
-  contactPoint: {
-    "@type": "ContactPoint",
-    email: EMAIL,
-    contactType: "customer support",
-    areaServed: "Worldwide",
-    availableLanguage: ["English"],
-  },
+  contactPoint: [
+    {
+      "@type": "ContactPoint",
+      email: EMAIL,
+      telephone: PHONE_E164,
+      contactType: "customer support",
+      areaServed: "Worldwide",
+      availableLanguage: ["English"],
+    },
+    {
+      "@type": "ContactPoint",
+      telephone: PHONE_E164,
+      contactType: "sales",
+      areaServed: "Worldwide",
+      availableLanguage: ["English"],
+    },
+  ],
   email: EMAIL,
+  telephone: PHONE_E164,
   areaServed: ["NG", "GB", "US", "Worldwide"],
   priceRange: "£££",
   knowsAbout: [
@@ -88,6 +101,7 @@ export const personSchema = {
   url: `${SITE_URL}/about`,
   image: OG_URL,
   email: EMAIL,
+  telephone: PHONE_E164,
   jobTitle: "Founder & Creative Director, Greyform",
   description:
     "Founder and Creative Director of Greyform, a Lagos web design and development studio. Part-time lecturer (CSC 102) at Pan-Atlantic University.",

@@ -4,6 +4,35 @@ import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
 import { ArrowUpRight, Check } from "lucide-react";
 import { SERVICES, type Service } from "@/data/services";
+import { SERVICES_FAQS } from "@/data/faqs";
+
+const PROCESS_STEPS: { num: string; label: string; body: string }[] = [
+  {
+    num: "01",
+    label: "Discover",
+    body: "A short, focused call. We map who the site is for, what success looks like in plain language, and the constraints that actually matter — budget, timeline, internal team. You leave with a one-page brief whether or not we work together.",
+  },
+  {
+    num: "02",
+    label: "Design",
+    body: "Structure first, surface second. We shape the sitemap and the content order around the people you want to reach, then move to Figma for typography, motion, and the editorial system the whole site will run on.",
+  },
+  {
+    num: "03",
+    label: "Build",
+    body: "Hand-coded in Next.js and Tailwind, on a staging URL from day one. You watch it come together as we go — no big reveal at the end, no surprises. Two structured rounds of revisions are part of the scope.",
+  },
+  {
+    num: "04",
+    label: "Ship",
+    body: "Performance and accessibility pass, redirects, sitemap, OG, schema, analytics. We deploy to Vercel (or your host of choice), point DNS, and run a quiet first week to make sure nothing wobbles under real traffic.",
+  },
+  {
+    num: "05",
+    label: "Support",
+    body: "Thirty days of post-launch care included on every build — small fixes, copy edits, the bits a site always needs after going live. Ongoing engineering support is available afterwards on a light retainer.",
+  },
+];
 
 const ease: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
@@ -75,7 +104,130 @@ export default function ServicesView() {
           showTopHairline={i > 0}
         />
       ))}
+
+      <ProcessSection />
+      <FaqSection />
     </>
+  );
+}
+
+function ProcessSection() {
+  return (
+    <section
+      id="process"
+      className="border-t-[4px] border-fg/90 px-6 py-24 md:px-10 md:py-32"
+    >
+      <motion.div
+        variants={blockContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-15% 0px -15% 0px" }}
+        className="mx-auto grid max-w-[1400px] grid-cols-1 gap-x-16 gap-y-10 md:grid-cols-12"
+      >
+        <motion.div variants={blockLine} className="md:col-span-4">
+          <p className="font-mono text-fluid-xs uppercase tracking-[0.18em] text-muted">
+            How we work
+          </p>
+          <h2
+            className="mt-6 font-display tracking-tightest text-fg leading-[1.02]"
+            style={{ fontSize: "clamp(2.25rem, 4.5vw, 3.75rem)" }}
+          >
+            Five steps. <em className="italic text-muted">No theatre.</em>
+          </h2>
+          <p className="mt-8 max-w-[36ch] text-fluid-base leading-relaxed text-muted">
+            The same shape on every engagement — sized to scope, never skipped.
+            You see real work from week one.
+          </p>
+        </motion.div>
+
+        <div className="md:col-span-8">
+          <ul className="border-t border-line">
+            {PROCESS_STEPS.map((step) => (
+              <motion.li
+                key={step.num}
+                variants={blockLine}
+                className="grid grid-cols-12 items-baseline gap-x-6 border-b border-line py-8 md:py-10"
+              >
+                <span className="col-span-2 font-mono text-[10px] uppercase tracking-[0.22em] text-muted md:col-span-1">
+                  {step.num}
+                </span>
+                <h3
+                  className="col-span-10 font-display tracking-tightest text-fg leading-[1.05] md:col-span-3"
+                  style={{ fontSize: "clamp(1.5rem, 2.6vw, 2.25rem)" }}
+                >
+                  {step.label}
+                </h3>
+                <p className="col-span-12 mt-3 max-w-[58ch] text-fluid-base leading-relaxed text-fg/85 md:col-span-8 md:mt-0">
+                  {step.body}
+                </p>
+              </motion.li>
+            ))}
+          </ul>
+        </div>
+      </motion.div>
+    </section>
+  );
+}
+
+function FaqSection() {
+  return (
+    <section
+      id="faq"
+      className="border-t border-line px-6 py-24 md:px-10 md:py-32"
+    >
+      <motion.div
+        variants={blockContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-15% 0px -15% 0px" }}
+        className="mx-auto grid max-w-[1400px] grid-cols-1 gap-x-16 gap-y-10 md:grid-cols-12"
+      >
+        <motion.div variants={blockLine} className="md:col-span-4">
+          <p className="font-mono text-fluid-xs uppercase tracking-[0.18em] text-muted">
+            Frequently asked
+          </p>
+          <h2
+            className="mt-6 font-display tracking-tightest text-fg leading-[1.02]"
+            style={{ fontSize: "clamp(2.25rem, 4.5vw, 3.75rem)" }}
+          >
+            The things <em className="italic text-muted">most people ask</em> first.
+          </h2>
+          <p className="mt-8 max-w-[36ch] text-fluid-base leading-relaxed text-muted">
+            Don&rsquo;t see your question? Email{" "}
+            <a
+              href="mailto:hello@greyform.org"
+              data-cursor="hover"
+              className="text-fg underline underline-offset-4 decoration-fg/30 hover:decoration-fg"
+            >
+              hello@greyform.org
+            </a>
+            .
+          </p>
+        </motion.div>
+
+        <div className="md:col-span-8">
+          <dl className="border-t border-line">
+            {SERVICES_FAQS.map((f) => (
+              <motion.div
+                key={f.question}
+                variants={blockLine}
+                className="border-b border-line py-8 md:py-10"
+              >
+                <dt
+                  className="font-display tracking-tightest text-fg leading-[1.15]"
+                  style={{ fontSize: "clamp(1.25rem, 2.2vw, 1.75rem)" }}
+                >
+                  {f.question}
+                </dt>
+                <dd className="mt-4 max-w-[58ch] text-fluid-base leading-relaxed text-fg/85">
+                  {f.answer}
+                </dd>
+              </motion.div>
+            ))}
+          </dl>
+        </div>
+      </motion.div>
+    </section>
   );
 }
 
