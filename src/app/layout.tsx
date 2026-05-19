@@ -2,11 +2,16 @@ import type { Metadata } from "next";
 import { Fraunces, Inter, JetBrains_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import SmoothScroll from "@/components/SmoothScroll";
-import Cursor from "@/components/Cursor";
+import ClientChrome from "@/components/ClientChrome";
+import MotionProvider from "@/components/MotionProvider";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { themeInitScript } from "@/lib/theme";
+import {
+  JsonLd,
+  organizationSchema,
+  websiteSchema,
+} from "@/components/JsonLd";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -28,28 +33,48 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
+const DEFAULT_TITLE = "Greyform · Web design & development studio, Lagos";
+const DEFAULT_DESCRIPTION =
+  "Greyform is a Lagos-based web design and development studio. We build distinctive, performant websites for businesses, schools, and creators. Working globally.";
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://greyform.org"),
   title: {
-    default: "Greyform — Web design & development",
-    template: "%s — Greyform",
+    default: DEFAULT_TITLE,
+    template: "%s · Greyform",
   },
-  description:
-    "I design and build websites for businesses that want to stand out, not blend in. Based in Lagos. Working globally.",
+  description: DEFAULT_DESCRIPTION,
+  applicationName: "Greyform",
+  authors: [{ name: "Chudi Ofoma", url: "https://greyform.org/about" }],
+  creator: "Chudi Ofoma",
+  publisher: "Greyform (KeyPass Solutions)",
+  keywords: [
+    "web design studio Lagos",
+    "web development Nigeria",
+    "Next.js development studio",
+    "premium website design",
+    "Lagos web design agency",
+    "editorial website design",
+    "Greyform",
+    "Greyform studio",
+  ],
+  category: "design",
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
     url: "https://greyform.org",
     siteName: "Greyform",
-    title: "Greyform — Web design & development",
-    description:
-      "I design and build websites for businesses that want to stand out, not blend in. Based in Lagos. Working globally.",
+    title: DEFAULT_TITLE,
+    description: DEFAULT_DESCRIPTION,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Greyform — Web design & development",
-    description:
-      "I design and build websites for businesses that want to stand out, not blend in. Based in Lagos. Working globally.",
+    title: DEFAULT_TITLE,
+    description: DEFAULT_DESCRIPTION,
+    creator: "@chudiofoma",
   },
   robots: {
     index: true,
@@ -61,6 +86,11 @@ export const metadata: Metadata = {
       "max-snippet": -1,
       "max-video-preview": -1,
     },
+  },
+  verification: {
+    // TODO: replace with the verification code from Google Search Console
+    // (Property → Settings → Ownership verification → HTML tag).
+    google: "REPLACE_WITH_GOOGLE_SEARCH_CONSOLE_TOKEN",
   },
   manifest: "/site.webmanifest",
   icons: {
@@ -80,22 +110,6 @@ export const viewport = {
   ],
 };
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  name: "Greyform",
-  url: "https://greyform.org",
-  founder: {
-    "@type": "Person",
-    name: "Chudi Ofoma",
-  },
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: "Lagos",
-    addressCountry: "Nigeria",
-  },
-};
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -108,20 +122,22 @@ export default function RootLayout({
       className={`${fraunces.variable} ${inter.variable} ${jetbrainsMono.variable}`}
     >
       <head>
-        <script
-          dangerouslySetInnerHTML={{ __html: themeInitScript }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+        <JsonLd data={[organizationSchema, websiteSchema]} />
       </head>
       <body className="font-sans bg-bg text-fg antialiased">
-        <SmoothScroll />
-        <Cursor />
-        <Nav />
-        <main>{children}</main>
-        <Footer />
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:rounded-md focus:bg-fg focus:px-4 focus:py-2 focus:font-mono focus:text-xs focus:uppercase focus:tracking-[0.18em] focus:text-bg"
+        >
+          Skip to content
+        </a>
+        <MotionProvider>
+          <ClientChrome />
+          <Nav />
+          <main id="main">{children}</main>
+          <Footer />
+        </MotionProvider>
         <Analytics />
         <SpeedInsights />
       </body>

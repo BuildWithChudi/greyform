@@ -31,7 +31,7 @@ export default function ThemeToggle({ className }: { className?: string }) {
       type="button"
       onClick={cycle}
       data-cursor="hover"
-      aria-label={`Switch theme — currently ${label.toLowerCase()}`}
+      aria-label={`Switch theme. Currently ${label.toLowerCase()}.`}
       title={label}
       className={cn(
         "inline-flex h-9 w-9 items-center justify-center rounded-full border border-line text-fg/80 hover:text-fg hover:border-fg/30 transition-colors",

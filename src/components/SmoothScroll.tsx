@@ -6,11 +6,15 @@ import { gsap } from "gsap";
 
 export default function SmoothScroll() {
   useEffect(() => {
-    const isTouch =
-      typeof window !== "undefined" &&
-      window.matchMedia("(hover: none), (pointer: coarse)").matches;
+    if (typeof window === "undefined") return;
 
-    if (isTouch) return;
+    const isTouch = window.matchMedia("(hover: none), (pointer: coarse)")
+      .matches;
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    if (isTouch || prefersReducedMotion) return;
 
     const lenis = new Lenis({
       duration: 1.2,

@@ -18,12 +18,30 @@ npm run dev
 
 Visit `http://localhost:3000`.
 
+## Environment
+
+Copy `.env.local.example` (if present) or set these in `.env.local`:
+
+```bash
+# Required for /api/inquiry to send mail. Without it the endpoint returns 503.
+RESEND_API_KEY=re_xxxxxxxxxxxxxxxxxxxxxxxx
+
+# Optional. Defaults to "Greyform <hello@greyform.org>" / "hello@greyform.org".
+# In production, the FROM address must be on a domain you've verified in Resend.
+# For dev you can use "onboarding@resend.dev".
+INQUIRY_FROM_EMAIL="Greyform <hello@greyform.org>"
+INQUIRY_TO_EMAIL="hello@greyform.org"
+```
+
 ## Layout
 
 ```
 src/
   app/
-    api/ping/         edge route for the footer latency indicator
+    api/
+      ping/           edge route for the footer latency indicator
+      inquiry/        POST handler for the start-a-project form (Resend)
+    start/            multi-step inquiry form
     layout.tsx        fonts, metadata, JSON-LD, theme pre-paint script
     page.tsx          home — composes the sections below
     globals.css       CSS-var design tokens, dark override, Lenis classes
@@ -35,7 +53,10 @@ src/
     SmoothScroll.tsx  Lenis + gsap.ticker sync, off on touch
     ThemeToggle.tsx   system → light → dark
     sections/         page-level sections (Hero, Philosophy, …)
+  emails/
+    InquiryEmail.tsx  React Email template for the notification mail
   lib/
+    schemas/          zod schemas (inquiry, …)
     theme.ts          useTheme + FOUC-safe init script
     utils.ts          cn()
 public/

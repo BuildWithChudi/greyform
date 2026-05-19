@@ -26,40 +26,7 @@ const row: Variants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease } },
 };
 
-type Service = {
-  number: string;
-  title: string;
-  description: string;
-  price: string;
-  hash: string;
-};
-
-const SERVICES: Service[] = [
-  {
-    number: "01",
-    title: "Custom Websites",
-    description:
-      "Brand-built sites, from strategy through launch. Bespoke design, hand-coded, performance-first.",
-    price: "From £1,500",
-    hash: "custom-websites",
-  },
-  {
-    number: "02",
-    title: "Redesigns",
-    description:
-      "A focused rework of a site you already have. Better speed, structure, and visual identity — without starting from scratch.",
-    price: "From £900",
-    hash: "redesigns",
-  },
-  {
-    number: "03",
-    title: "Web Applications",
-    description:
-      "Custom tools, dashboards, and product surfaces. From prototype to production, designed and engineered together.",
-    price: "Quoted",
-    hash: "web-applications",
-  },
-];
+import { SERVICES } from "@/data/services";
 
 export default function ServicesPreview() {
   return (
@@ -86,7 +53,7 @@ export default function ServicesPreview() {
           className="mt-6 max-w-[18ch] font-display tracking-tightest text-fg leading-[1.05]"
           style={{ fontSize: "clamp(2.25rem, 4.5vw, 4rem)" }}
         >
-          Three ways to work together.
+          Three ways to work together.<span className="italic text-muted"> Pick the closest fit.</span>
         </motion.h2>
       </motion.div>
 
@@ -100,9 +67,9 @@ export default function ServicesPreview() {
         {SERVICES.map((s) => (
           <motion.li key={s.number} variants={row}>
             <Link
-              href={`/services#${s.hash}`}
+              href={`/services#${s.slug}`}
               data-cursor="hover"
-              aria-label={`${s.title} — ${s.price}`}
+              aria-label={`${s.title}, ${s.pricePreview}`}
               className="group block origin-center transition-[transform,background-color] duration-500 ease-out hover:scale-[1.01] hover:bg-[#F2F2F2] dark:hover:bg-[#161616] will-change-transform"
             >
               <div className="grid grid-cols-12 items-start gap-x-4 gap-y-4 px-4 py-10 md:gap-x-8 md:px-8 md:py-14">
@@ -118,13 +85,13 @@ export default function ServicesPreview() {
                     {s.title}
                   </h3>
                   <p className="mt-3 max-w-prose text-fluid-base text-muted leading-relaxed">
-                    {s.description}
+                    {s.summary}
                   </p>
                 </div>
 
                 <div className="col-span-12 flex items-center justify-between gap-4 md:col-span-4 md:justify-end md:gap-8">
                   <span className="font-mono text-fluid-xs uppercase tracking-[0.16em] text-muted whitespace-nowrap">
-                    {s.price}
+                    {s.pricePreview}
                   </span>
                   <ArrowRight
                     aria-hidden

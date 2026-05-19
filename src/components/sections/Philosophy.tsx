@@ -22,8 +22,8 @@ const headingLine: Variants = {
 };
 
 const followUp = [
-  "I sell results.",
-  "A site that loads fast, looks distinctive, ranks well, and earns its place on every device.",
+  "We sell results.",
+  "A site that loads fast, looks like itself, ranks well, and earns its place on every device in your client's pocket.",
   "Anything less is a brochure.",
 ];
 
@@ -52,7 +52,7 @@ export default function Philosophy() {
           className="mt-8 font-display tracking-tightest text-fg leading-[1.05]"
           style={{ fontSize: "clamp(3rem, 6vw, 5rem)" }}
         >
-          I don&rsquo;t sell websites.
+          We don&rsquo;t sell websites.
         </motion.h2>
 
         <div className="mt-10 space-y-5">

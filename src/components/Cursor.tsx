@@ -11,7 +11,10 @@ export default function Cursor() {
     const isTouch = window.matchMedia(
       "(hover: none), (pointer: coarse)"
     ).matches;
-    if (isTouch) return;
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    if (isTouch || prefersReducedMotion) return;
 
     const dot = dotRef.current;
     if (!dot) return;

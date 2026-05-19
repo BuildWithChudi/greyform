@@ -22,9 +22,9 @@ const HEADLINE: Token[] = [
 ];
 
 const NOW_ITEMS = [
-  { label: "Shipping ipheclan.com", pulse: true },
-  { label: "Lecturing CSC102 at PAU", pulse: false },
-  { label: "Open to new projects from July", pulse: false },
+  { label: "Currently shipping ipheclan.com", pulse: true },
+  { label: "New case study: Whitesands School", pulse: false },
+  { label: "Booking projects from July 2026", pulse: false },
 ];
 
 const wordVariants = {
@@ -50,6 +50,13 @@ export default function Hero() {
   useEffect(() => {
     let ctx: gsap.Context | undefined;
     let cancelled = false;
+
+    if (
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      return;
+    }
 
     (async () => {
       const { ScrollTrigger } = await import("gsap/ScrollTrigger");
@@ -107,7 +114,7 @@ export default function Hero() {
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             className="font-mono text-fluid-xs uppercase tracking-[0.18em] text-muted"
           >
-            Greyform — Section 00 / Home
+            Greyform · 00 / Home
           </motion.p>
 
           <h1
@@ -150,8 +157,9 @@ export default function Hero() {
             }}
             className="mt-10 max-w-[52ch] text-fluid-lg text-muted leading-relaxed"
           >
-            I&rsquo;m Chudi. I design and build sites for businesses that want
-            to stand out &mdash; not blend in.
+            Greyform is a small web studio in Lagos. We design and build
+            sites for businesses that&rsquo;d rather be remembered than
+            simply present.
           </motion.p>
 
           <motion.div
