@@ -91,8 +91,8 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: DEFAULT_TITLE,
     description: DEFAULT_DESCRIPTION,
-    site: "@chudiofoma",
-    creator: "@chudiofoma",
+    site: "@mrofoma",
+    creator: "@mrofoma",
     images: [{ url: "/opengraph-image", alt: OG_ALT }],
   },
   robots: {

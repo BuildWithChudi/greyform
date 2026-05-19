@@ -16,10 +16,10 @@ const OG_URL = `${SITE_URL}/opengraph-image`;
 // Public profile URLs for Chudi — the studio's identity is his identity.
 // Replace any handle that isn't actually owned to keep E-E-A-T signals truthful.
 const PERSON_SAME_AS = [
-  "https://www.linkedin.com/in/chudiofoma",
+  "https://www.linkedin.com/in/ochudi",
   "https://github.com/ochudi",
-  "https://x.com/chudiofoma",
-  "https://instagram.com/chudiofoma",
+  "https://x.com/mrofoma",
+  "https://instagram.com/mrofoma",
 ];
 
 export const organizationSchema = {
