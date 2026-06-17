@@ -84,17 +84,21 @@ export default function CaseStudyView({ cs, indexNumber, next }: Props) {
         </motion.div>
       </section>
 
-      {/* ───────────────────────── Cover (full-bleed) ───────────────────────── */}
-      <section className="w-full">
-        <div className="relative aspect-[16/10] w-full overflow-hidden bg-fg/[0.04] sm:aspect-[16/9] md:aspect-[21/9]">
-          <Image
-            src={cs.cover}
-            alt={cs.coverAlt}
-            fill
-            sizes="100vw"
-            priority
-            className="object-cover"
-          />
+      {/* ───────────────────────── Cover ───────────────────────── */}
+      {/* Framed at the screenshots' native ~16:10 ratio so nothing meaningful
+          is cropped — reads as a deliberate device frame, not a chopped image. */}
+      <section className="px-6 md:px-10">
+        <div className="mx-auto max-w-[1400px]">
+          <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl bg-fg/[0.04] ring-1 ring-line">
+            <Image
+              src={cs.cover}
+              alt={cs.coverAlt}
+              fill
+              sizes="(min-width: 1440px) 1400px, 100vw"
+              priority
+              className="object-cover object-top"
+            />
+          </div>
         </div>
       </section>
 
