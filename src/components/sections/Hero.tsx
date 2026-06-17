@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { gsap } from "gsap";
 import { ArrowUpRight, ArrowRight } from "lucide-react";
+import { CASE_STUDIES } from "@/data/work";
 
 type Token = { text: string; italic?: boolean };
 
@@ -21,11 +22,11 @@ const HEADLINE: Token[] = [
   { text: "AI." },
 ];
 
-// Keep evergreen — no calendar dates that will rot. The pulse dot signals
-// "live" so the panel reads as current without needing a refresh.
+// Derived from data so it never drifts from the actual newest case study.
+const LATEST_CASE_STUDY = CASE_STUDIES[0]?.client ?? "Whitesands School";
 const NOW_ITEMS = [
   { label: "Booking new projects", pulse: true },
-  { label: "Latest case study: Whitesands School", pulse: false },
+  { label: `Latest case study: ${LATEST_CASE_STUDY}`, pulse: false },
   { label: "Replies within 48 hours", pulse: false },
 ];
 
@@ -44,7 +45,7 @@ const wordVariants = {
 
 const HEADLINE_TOTAL_DELAY = 0.1 + HEADLINE.length * 0.08;
 
-export default function Hero() {
+export default function Hero({ now }: { now: string }) {
   const sectionRef = useRef<HTMLElement | null>(null);
   const headlineRef = useRef<HTMLDivElement | null>(null);
   const nowRef = useRef<HTMLDivElement | null>(null);
@@ -210,7 +211,7 @@ export default function Hero() {
           <div className="rounded-lg border border-line bg-bg/40 p-5 backdrop-blur-sm">
             <div className="flex items-center justify-between border-b border-line pb-3">
               <span className="font-mono text-fluid-xs uppercase tracking-[0.18em] text-muted">
-                Now / May 2026
+                Now / {now}
               </span>
               <span className="h-1.5 w-1.5 rounded-full bg-fg/40" aria-hidden />
             </div>

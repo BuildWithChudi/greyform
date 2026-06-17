@@ -153,6 +153,7 @@ export default function RootLayout({
         <JsonLd data={[organizationSchema, websiteSchema]} />
       </head>
       <body className="font-sans bg-bg text-fg antialiased">
+        <div className="grain" aria-hidden />
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:rounded-md focus:bg-fg focus:px-4 focus:py-2 focus:font-mono focus:text-xs focus:uppercase focus:tracking-[0.18em] focus:text-bg"

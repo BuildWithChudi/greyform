@@ -9,6 +9,7 @@ import {
 } from "@/lib/schemas/inquiry";
 import { InquiryEmail } from "@/emails/InquiryEmail";
 import { ConfirmationEmail } from "@/emails/ConfirmationEmail";
+import { getSupabase } from "@/lib/supabase";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -220,6 +221,30 @@ The Greyform team
       },
       { status: 502 }
     );
+  }
+
+  // Best-effort persistence to Supabase. We've already sent both emails, so a
+  // DB failure here must not 5xx the user — surface it in logs only.
+  const supabase = getSupabase();
+  if (supabase) {
+    try {
+      const { error: dbError } = await supabase.from("inquiries").insert({
+        name: inquiry.name,
+        email: inquiry.email,
+        company: inquiry.company || null,
+        location: inquiry.location || null,
+        project_type: inquiry.projectType,
+        description: inquiry.description,
+        references: inquiry.references || null,
+        timeline: inquiry.timeline,
+        budget: inquiry.budget,
+      });
+      if (dbError) {
+        console.error("[inquiry] Supabase insert failed", dbError);
+      }
+    } catch (err) {
+      console.error("[inquiry] Supabase threw", err);
+    }
   }
 
   return NextResponse.json({ ok: true, ref });

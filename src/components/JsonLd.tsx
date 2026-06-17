@@ -18,6 +18,7 @@ const PHONE_E164 = "+2347062200791";
 // Public profile URLs for Chudi — the studio's identity is his identity.
 // Replace any handle that isn't actually owned to keep E-E-A-T signals truthful.
 const PERSON_SAME_AS = [
+  "https://www.ochudi.com",
   "https://www.linkedin.com/in/ochudi",
   "https://github.com/ochudi",
   "https://x.com/mrofoma",

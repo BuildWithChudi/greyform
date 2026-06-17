@@ -50,7 +50,7 @@ export default function SelectedWork() {
 
         <motion.h2
           variants={headerLine}
-          className="mt-6 max-w-[22ch] font-display tracking-tightest text-fg leading-[1.05]"
+          className="mt-6 max-w-[22ch] text-balance font-display tracking-tightest text-fg leading-[1.05]"
           style={{ fontSize: "clamp(2.25rem, 4.5vw, 4rem)" }}
         >
           Recent work, built by Greyform.

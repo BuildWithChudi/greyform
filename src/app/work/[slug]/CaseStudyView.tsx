@@ -138,27 +138,31 @@ export default function CaseStudyView({ cs, indexNumber, next }: Props) {
         <Gallery items={cs.gallery} />
       )}
 
-      {/* ─────────────────────────── Testimonial ─────────────────────────── */}
-      {cs.testimonial && (
+      {/* ─────────────────────────── Testimonials ─────────────────────────── */}
+      {cs.testimonials && cs.testimonials.length > 0 && (
         <section className="px-6 py-24 md:px-10 md:py-32">
           <motion.div
-            initial={{ opacity: 0, y: 32 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            variants={sectionContainer}
+            initial="hidden"
+            whileInView="visible"
             viewport={{ once: true, margin: "-15% 0px -15% 0px" }}
-            transition={{ duration: 1, ease }}
-            className="mx-auto max-w-3xl"
+            className="mx-auto max-w-3xl space-y-12 md:space-y-16"
           >
-            <blockquote className="border-l-2 border-fg pl-6 md:pl-8">
-              <p
-                className="font-display italic text-fg leading-[1.2]"
-                style={{ fontSize: "clamp(1.5rem, 3vw, 2.25rem)" }}
-              >
-                &ldquo;{cs.testimonial.quote}&rdquo;
-              </p>
-              <cite className="mt-6 block font-mono text-fluid-xs uppercase tracking-[0.18em] text-muted not-italic">
-                {cs.testimonial.attribution}
-              </cite>
-            </blockquote>
+            {cs.testimonials.map((t, i) => (
+              <motion.figure key={i} variants={sectionLine}>
+                <blockquote className="border-l-2 border-fg pl-6 md:pl-8">
+                  <p
+                    className="font-display italic text-fg leading-[1.2]"
+                    style={{ fontSize: "clamp(1.5rem, 3vw, 2.25rem)" }}
+                  >
+                    &ldquo;{t.quote}&rdquo;
+                  </p>
+                  <figcaption className="mt-6 font-mono text-fluid-xs uppercase tracking-[0.18em] text-muted not-italic">
+                    {t.attribution}
+                  </figcaption>
+                </blockquote>
+              </motion.figure>
+            ))}
           </motion.div>
         </section>
       )}

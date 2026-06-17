@@ -50,7 +50,7 @@ export default function ServicesPreview() {
 
         <motion.h2
           variants={headerLine}
-          className="mt-6 max-w-[18ch] font-display tracking-tightest text-fg leading-[1.05]"
+          className="mt-6 max-w-[18ch] text-balance font-display tracking-tightest text-fg leading-[1.05]"
           style={{ fontSize: "clamp(2.25rem, 4.5vw, 4rem)" }}
         >
           Three ways to work together.<span className="italic text-muted"> Pick the closest fit.</span>

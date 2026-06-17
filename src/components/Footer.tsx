@@ -19,6 +19,7 @@ const NAV_LINKS = [
 // The studio's identity is Chudi's identity — link the profiles he actually
 // runs. If you spin up a separate @greyform brand later, swap these in.
 const SOCIAL_LINKS = [
+  { href: "https://www.ochudi.com", label: "ochudi.com" },
   { href: "https://x.com/mrofoma", label: "X (Twitter)" },
   { href: "https://www.linkedin.com/in/ochudi", label: "LinkedIn" },
   { href: "https://instagram.com/mrofoma", label: "Instagram" },

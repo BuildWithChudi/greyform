@@ -43,7 +43,7 @@ export default function FinalCTA() {
 
         <motion.h2
           variants={heading}
-          className="mt-8 font-display italic tracking-tightest text-fg leading-[1.02]"
+          className="mt-8 text-balance font-display italic tracking-tightest text-fg leading-[1.02]"
           style={{ fontSize: "clamp(3rem, 7vw, 6rem)" }}
         >
           Got a project worth doing?

@@ -49,7 +49,7 @@ export default function Philosophy() {
 
         <motion.h2
           variants={headingLine}
-          className="mt-8 font-display tracking-tightest text-fg leading-[1.05]"
+          className="mt-8 text-balance font-display tracking-tightest text-fg leading-[1.05]"
           style={{ fontSize: "clamp(3rem, 6vw, 5rem)" }}
         >
           We don&rsquo;t sell websites.

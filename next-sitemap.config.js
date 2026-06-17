@@ -6,13 +6,13 @@ module.exports = {
   outDir: "./public",
   changefreq: "monthly",
   priority: 0.7,
-  exclude: ["/api/*", "/opengraph-image*", "/_*"],
+  exclude: ["/api/*", "/admin", "/admin/*", "/opengraph-image*", "/_*"],
   robotsTxtOptions: {
     policies: [
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/api/"],
+        disallow: ["/api/", "/admin"],
       },
     ],
     additionalSitemaps: ["https://greyform.org/sitemap.xml"],
