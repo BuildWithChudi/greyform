@@ -24,7 +24,7 @@ const headingLine: Variants = {
 const followUp = [
   "We sell results.",
   "A site that loads fast, looks like itself, ranks well, and earns its place on every device in your client's pocket.",
-  "Anything less is a brochure.",
+  "Anything less is just a brochure.",
 ];
 
 export default function Philosophy() {
