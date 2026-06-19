@@ -3,7 +3,15 @@
 import { useMemo, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
-import { ChevronDown, ExternalLink, LogOut, Save } from "lucide-react";
+import {
+  Check,
+  ChevronDown,
+  Copy,
+  Download,
+  ExternalLink,
+  LogOut,
+  Save,
+} from "lucide-react";
 import {
   INQUIRY_STATUSES,
   INQUIRY_STATUS_LABEL,
@@ -45,6 +53,72 @@ function humanLabel(value: string): string {
     .join(" ");
 }
 
+function relativeTime(iso: string): string {
+  const then = new Date(iso).getTime();
+  if (Number.isNaN(then)) return "";
+  const diff = Date.now() - then;
+  const min = Math.round(diff / 60_000);
+  if (min < 1) return "just now";
+  if (min < 60) return `${min}m ago`;
+  const hr = Math.round(min / 60);
+  if (hr < 24) return `${hr}h ago`;
+  const day = Math.round(hr / 24);
+  if (day < 7) return `${day}d ago`;
+  const wk = Math.round(day / 7);
+  if (wk < 5) return `${wk}w ago`;
+  return new Date(iso).toLocaleDateString("en-GB", {
+    day: "2-digit",
+    month: "short",
+    year: "2-digit",
+  });
+}
+
+function firstName(name: string): string {
+  return name.trim().split(/\s+/)[0] || name;
+}
+
+// Rough midpoints per budget band — for a directional "open pipeline" figure
+// only, never billed against. "not-sure" contributes nothing.
+const BUDGET_ESTIMATE: Record<string, number> = {
+  "under-1k": 750,
+  "1k-3k": 2000,
+  "3k-10k": 6500,
+  "10k-plus": 12000,
+  "not-sure": 0,
+};
+
+const OPEN_STATUSES: InquiryStatus[] = ["new", "contacted", "proposal_sent"];
+
+function gbp(n: number): string {
+  return "£" + Math.round(n).toLocaleString("en-GB");
+}
+
+function toCsv(rows: InquiryRow[]): string {
+  const headers = [
+    "created_at",
+    "name",
+    "email",
+    "company",
+    "location",
+    "project_type",
+    "timeline",
+    "budget",
+    "status",
+    "description",
+    "references",
+    "notes",
+    "id",
+  ];
+  const esc = (v: unknown) => {
+    const s = v == null ? "" : String(v);
+    return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+  };
+  const lines = rows.map((r) =>
+    headers.map((h) => esc((r as Record<string, unknown>)[h])).join(",")
+  );
+  return [headers.join(","), ...lines].join("\n");
+}
+
 export default function AdminTable({ inquiries, storageError }: Props) {
   const router = useRouter();
   const [filter, setFilter] = useState<"all" | InquiryStatus>("all");
@@ -78,6 +152,37 @@ export default function AdminTable({ inquiries, storageError }: Props) {
     return c;
   }, [inquiries]);
 
+  const stats = useMemo(() => {
+    const weekAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
+    let thisWeek = 0;
+    let openPipeline = 0;
+    for (const row of inquiries) {
+      if (new Date(row.created_at).getTime() >= weekAgo) thisWeek += 1;
+      if (OPEN_STATUSES.includes(row.status)) {
+        openPipeline += BUDGET_ESTIMATE[row.budget] ?? 0;
+      }
+    }
+    return {
+      total: inquiries.length,
+      neu: counts.new ?? 0,
+      thisWeek,
+      won: counts.won ?? 0,
+      openPipeline,
+    };
+  }, [inquiries, counts]);
+
+  function exportCsv() {
+    const csv = toCsv(filtered.length ? filtered : inquiries);
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    const stamp = new Date().toISOString().slice(0, 10);
+    a.href = url;
+    a.download = `greyform-inquiries-${stamp}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
   return (
     <section className="min-h-screen px-6 pt-28 pb-24 md:px-10 md:pt-36">
       <div className="mx-auto max-w-[1400px]">
@@ -101,6 +206,16 @@ export default function AdminTable({ inquiries, storageError }: Props) {
           <div className="flex items-center gap-3">
             <button
               type="button"
+              onClick={exportCsv}
+              disabled={inquiries.length === 0}
+              className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.22em] text-muted hover:text-fg disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              <Download className="h-3 w-3" />
+              Export CSV
+            </button>
+            <span aria-hidden className="text-muted/40">·</span>
+            <button
+              type="button"
               onClick={() => router.refresh()}
               className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted underline underline-offset-4 decoration-line hover:text-fg hover:decoration-fg"
             >
@@ -119,6 +234,23 @@ export default function AdminTable({ inquiries, storageError }: Props) {
             </button>
           </div>
         </div>
+
+        {/* ───── Metrics ───── */}
+        <dl className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-3 lg:grid-cols-5">
+          <Metric label="Total" value={String(stats.total)} />
+          <Metric
+            label="New · needs reply"
+            value={String(stats.neu)}
+            emphasis={stats.neu > 0}
+          />
+          <Metric label="This week" value={String(stats.thisWeek)} />
+          <Metric label="Won" value={String(stats.won)} />
+          <Metric
+            label="Est. open pipeline"
+            value={gbp(stats.openPipeline)}
+            hint="Rough estimate from budget bands"
+          />
+        </dl>
 
         {/* ───── Filters ───── */}
         <div className="mt-12 flex flex-col gap-4 border-y border-line py-4 md:flex-row md:items-center md:justify-between">
@@ -204,16 +336,20 @@ function Row({
   onToggle: () => void;
   onPatched: (updated: InquiryRow) => void;
 }) {
+  const isNew = row.status === "new";
   return (
-    <li>
+    <li className={isNew ? "border-l-2 border-fg" : "border-l-2 border-transparent"}>
       <button
         type="button"
         onClick={onToggle}
         aria-expanded={open}
-        className="grid w-full grid-cols-12 items-center gap-x-4 px-2 py-5 text-left transition-colors hover:bg-fg/[0.025]"
+        className="grid w-full grid-cols-12 items-center gap-x-4 px-2 py-5 pl-3 text-left transition-colors hover:bg-fg/[0.025]"
       >
-        <span className="col-span-12 md:col-span-2 font-mono text-[10px] uppercase tracking-[0.22em] text-muted">
-          {formatDate(row.created_at)}
+        <span
+          className="col-span-12 md:col-span-2 font-mono text-[10px] uppercase tracking-[0.22em] text-muted"
+          title={formatDate(row.created_at)}
+        >
+          {relativeTime(row.created_at)}
         </span>
         <span className="col-span-6 md:col-span-3 text-fluid-base text-fg truncate">
           {row.name}
@@ -295,6 +431,26 @@ function Details({
     "idle"
   );
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [copied, setCopied] = useState(false);
+
+  const ref = row.id.slice(0, 8).toUpperCase();
+  const replySubject = `Re: your Greyform inquiry · ${ref}`;
+  const replyBody = `Hi ${firstName(row.name)},\n\nThanks for reaching out about your ${humanLabel(
+    row.project_type
+  ).toLowerCase()} project — `;
+  const mailto = `mailto:${row.email}?subject=${encodeURIComponent(
+    replySubject
+  )}&body=${encodeURIComponent(replyBody)}`;
+
+  async function copyEmail() {
+    try {
+      await navigator.clipboard.writeText(row.email);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch {
+      /* clipboard unavailable — the mailto link still works */
+    }
+  }
 
   const dirty = status !== row.status || (notes ?? "") !== (row.notes ?? "");
 
@@ -367,16 +523,22 @@ function Details({
           <Stat label="Submitted">{formatDate(row.created_at)}</Stat>
         </dl>
 
-        <div className="mt-8 flex flex-wrap items-center gap-4">
+        <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
           <a
-            href={`mailto:${row.email}?subject=${encodeURIComponent(
-              "Re: your Greyform inquiry"
-            )}`}
-            className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.22em] text-fg underline underline-offset-4 decoration-fg/30 hover:decoration-fg"
+            href={mailto}
+            className="inline-flex items-center gap-2 rounded-full bg-fg px-4 py-2 font-mono text-[10px] uppercase tracking-[0.22em] text-bg transition-colors hover:bg-bg hover:text-fg hover:ring-1 hover:ring-fg"
           >
-            Reply to {row.email}
+            Reply
             <ExternalLink className="h-3 w-3" />
           </a>
+          <button
+            type="button"
+            onClick={copyEmail}
+            className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.22em] text-muted hover:text-fg"
+          >
+            {copied ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
+            {copied ? "Copied" : row.email}
+          </button>
         </div>
       </div>
 
@@ -439,7 +601,7 @@ function Details({
         </Field>
 
         <p className="mt-8 font-mono text-[10px] uppercase tracking-[0.22em] text-muted">
-          Ref · <span className="text-fg/80">{row.id.slice(0, 8)}</span>
+          Ref · <span className="text-fg/80">{ref}</span>
         </p>
       </div>
     </div>
@@ -478,6 +640,41 @@ function Stat({
         {label}
       </dt>
       <dd className="mt-2 text-fluid-base text-fg/90">{children}</dd>
+    </div>
+  );
+}
+
+function Metric({
+  label,
+  value,
+  emphasis,
+  hint,
+}: {
+  label: string;
+  value: string;
+  emphasis?: boolean;
+  hint?: string;
+}) {
+  return (
+    <div className="bg-bg px-5 py-5" title={hint}>
+      <dt className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted">
+        {label}
+      </dt>
+      <dd
+        className={
+          "mt-3 font-display tracking-tightest leading-none " +
+          (emphasis ? "text-fg" : "text-fg/90")
+        }
+        style={{ fontSize: "clamp(1.75rem, 3vw, 2.5rem)" }}
+      >
+        {value}
+        {emphasis ? (
+          <span
+            aria-hidden
+            className="ml-2 inline-block h-2 w-2 -translate-y-1.5 rounded-full bg-fg align-middle animate-pulse"
+          />
+        ) : null}
+      </dd>
     </div>
   );
 }

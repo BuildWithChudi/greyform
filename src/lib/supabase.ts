@@ -1,4 +1,5 @@
 import "server-only";
+import WebSocket from "ws";
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 
 /**
@@ -24,6 +25,11 @@ export function getSupabase(): SupabaseClient | null {
   cached = createClient(url, key, {
     auth: { persistSession: false, autoRefreshToken: false },
     db: { schema: "public" },
+    // We never use Realtime, but supabase-js v2.106 eagerly constructs a
+    // RealtimeClient that demands a WebSocket implementation — which Node < 22
+    // doesn't expose globally. Handing it `ws` satisfies that constructor so
+    // the client builds on Node 20 (local + Vercel) without throwing.
+    realtime: { transport: WebSocket as unknown as typeof globalThis.WebSocket },
   });
   return cached;
 }
