@@ -150,6 +150,39 @@ const ALL_CASE_STUDIES: readonly CaseStudy[] = [
     // proof. Drop a verbatim line from Iphe here once you have his sign-off and
     // the homepage strip + case-study quote light up automatically.
   },
+  {
+    slug: "life-upside-view",
+    client: "Life Upside View",
+    title: "A mental-health platform built around one promise: you are not alone.",
+    year: "2026",
+    summary:
+      "A support platform for people in a hard moment — somewhere to find a story, a tool, or a fast way to reach help. The design direction was the client's; our job was to build it into something steady and quick on the phones people actually open at 2am. Searchable stories of resilience, a low-pressure self check-in, light and dark reading modes, more than one language, and a get-help route that's never more than a tap away.",
+    tags: ["Development", "Accessibility", "Performance", "Nonprofit"],
+    cover:
+      "https://res.cloudinary.com/dud5owpai/image/upload/v1782633362/life-upside-view-website_x0ws31.png",
+    coverAlt:
+      "Life Upside View mental-health platform by Greyform — the “You are not alone” homepage",
+    liveUrl: "https://www.lifeupsideview.org",
+    liveUrlLabel: "lifeupsideview.org",
+    role: "Development",
+    stack: ["Next.js", "Tailwind", "Vercel"],
+    problem: {
+      heading: "When someone is reaching out, every bit of friction is a reason to close the tab.",
+      body: "Life Upside View needed a home that could meet people at a low point — often anxious, often late at night, often on a slow connection — and get them to something useful without making them work for it. In this context the basics carry real weight: a page that stalls, a menu that's hard to scan, or a help link buried two clicks down isn't a minor flaw, it's a person who leaves before they find anything. The client had a clear vision for how it should look and feel. The brief to us was to make that vision real without letting it get heavy or hard to reach.",
+    },
+    approach: {
+      heading: "Build the client's design faithfully — then make it fast, legible, and easy to get help from.",
+      body: "We worked directly with the client and implemented their design as specified, hand-coding it so the warmth of the original — the open imagery, the single steadying line, the calm spacing — survived the move from mockup to a live product without bloating. A persistent “Get help” route stays one tap from every screen. Light and dark modes let people read in whatever's easiest on the eyes in the moment, and a language toggle widens who the site can actually serve. Stories of resilience are searchable rather than buried, and the self check-in reads as a few honest questions instead of a clinical form. Throughout, the build is tuned to stay quick on the mid-range phones most of the audience is holding — because in a crisis, load time is part of the care.",
+    },
+    outcome: {
+      heading: "A calm front door that does the hard part: getting people to help, fast.",
+      body: "The site launched true to the client's design while staying fast and accessible — readable in both themes, navigable in more than one language, and quick to surface a story, a tool, or a way to talk to someone. The pieces that matter most here all sit within a tap or two of anywhere on the site: the standing get-help route, the low-friction check-in, the searchable stories. Built to the client's spec, hand-built for speed.",
+    },
+    // Role is honestly scoped to Development — the client led the design and we
+    // implemented it. Stack assumes Greyform's standard hand-built setup; swap if
+    // it differs. Add a client quote here once cleared and the homepage strip +
+    // case-study quote light up automatically.
+  },
 ];
 
 // Public list — drafts removed. Use this everywhere (homepage, /work, sitemap,
