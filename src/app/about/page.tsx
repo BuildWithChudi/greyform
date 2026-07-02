@@ -9,7 +9,7 @@ import {
 const DESCRIPTION =
   "Greyform is a Lagos web design and development studio building distinctive, performant websites for businesses, schools, and creators. Founded and led by Chudi Ofoma. Working globally.";
 
-const OG_ALT = "About Greyform — a Lagos web design & development studio.";
+const OG_ALT = "About Greyform, a Lagos web design and development studio.";
 
 export const metadata: Metadata = {
   title: "About",

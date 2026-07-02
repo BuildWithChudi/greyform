@@ -31,6 +31,6 @@ export const SERVICES_FAQS: readonly Faq[] = [
   {
     question: "Who actually does the work?",
     answer:
-      "Chudi Ofoma — Greyform's founder and creative director — leads design and engineering on every project. You speak to the person building the site.",
+      "Chudi Ofoma, Greyform's founder and creative director, leads design and engineering on every project. You speak to the person building the site.",
   },
 ];

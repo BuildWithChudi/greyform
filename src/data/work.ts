@@ -64,11 +64,11 @@ const ALL_CASE_STUDIES: readonly CaseStudy[] = [
     title: "A complete digital reset for a 25-year-old Lagos Catholic school.",
     year: "2026",
     summary:
-      "A ground-up rebuild for a Lagos Catholic boys' school with twenty-five years behind it — and a website that no longer reflected the institution. Built around the school's “Duc in Altum” identity: fast on the mid-range phones parents actually use, editorial enough to read as established, and structured around what a parent needs to find in ten seconds.",
+      "Twenty-five years of standing, and a website that showed none of it. We rebuilt Whitesands from the ground up around its “Duc in Altum” identity: fast on the mid-range phones parents actually carry, editorial enough to read as established, and ordered so a parent finds what they came for in about ten seconds.",
     tags: ["Web Design", "Development", "SEO", "Brand"],
     cover:
       "https://res.cloudinary.com/dud5owpai/image/upload/v1781459603/whitesands-website-screenshot_sr38qn.png",
-    coverAlt: "Whitesands School website by Greyform — the “Duc in Altum” homepage",
+    coverAlt: "Whitesands School website by Greyform, showing the “Duc in Altum” homepage",
     liveUrl: "https://www.whitesands.org.ng",
     liveUrlLabel: "whitesands.org.ng",
     role: "Design + Development",
@@ -123,7 +123,7 @@ const ALL_CASE_STUDIES: readonly CaseStudy[] = [
     tags: ["Web Design", "Development", "Personal Brand"],
     cover:
       "https://res.cloudinary.com/dud5owpai/image/upload/v1781459595/ipheclan-website-screenshot_jb7a6t.png",
-    coverAlt: "Ipheclan personal brand site by Greyform — the IPHE wordmark hero",
+    coverAlt: "Ipheclan personal brand site by Greyform, showing the IPHE wordmark hero",
     liveUrl: "https://www.ipheclan.com",
     liveUrlLabel: "ipheclan.com",
     role: "Design + Development",
@@ -131,15 +131,15 @@ const ALL_CASE_STUDIES: readonly CaseStudy[] = [
     stack: ["Next.js", "Tailwind", "GSAP", "Vercel"],
     problem: {
       heading: "Four million followers, and nowhere that was actually his.",
-      body: "Iphe's entire reach lived on platforms he doesn't own — TikTok, Instagram, whatever the algorithm favours that month — and a link-in-bio is a list, not a brand. The site exists to turn a large rented audience into an owned one: a single home that represents him, holds his work, and gives brands a clear, credible way to get in touch.",
+      body: "Iphe's whole reach sat on platforms he doesn't own. TikTok, Instagram, whatever the algorithm favours this month. A link-in-bio is a list, not a brand. The site turns a large rented audience into an owned one: a single home that represents him, holds his work, and gives brands a clear, credible way to reach him.",
     },
     approach: {
-      heading: "One page, slow-scrolled, that feels like him — not a link-in-bio.",
-      body: "We built a single-page identity site with a deliberately cinematic scroll — Lenis for the buttery feel, GSAP for the choreography — so it moves with the same polish as his content. Enough personality and motion to read as a creator's space rather than a corporate page, held to a strict performance budget because his audience arrives on phones and leaves the moment a page stalls. Hand-built in Next.js on Vercel, tuned to stay fast on the mid-range Android most of that audience is actually holding.",
+      heading: "One page, slow-scrolled, that feels like him. Not a link-in-bio.",
+      body: "We built a single-page identity site with a deliberately cinematic scroll. Lenis for the feel, GSAP for the choreography, so it moves with the same polish as his content. Enough personality to read as a creator's space rather than a corporate page, held to a strict performance budget because his audience arrives on phones and leaves the moment a page stalls. Hand-built in Next.js on Vercel, tuned to stay fast on the mid-range Android most of them are actually holding.",
     },
     outcome: {
-      heading: "Signed off on the spot — balance paid before launch.",
-      body: "On the review call the reaction was immediate: Iphe walked the site once and paid the remaining balance before deployment and email were even wired up. The site now does the job his DMs used to — one link, press-ready and booking-ready, unmistakably his. Built end-to-end by Chudi, Greyform's founder.",
+      heading: "Signed off on the spot. Balance paid before launch.",
+      body: "On the review call the reaction was immediate. Iphe walked the site once and paid the remaining balance before deployment and email were even wired up. The site now does the job his DMs used to: one link, press-ready and booking-ready, unmistakably his. Built end to end by Chudi, Greyform's founder.",
       stats: [
         { value: "4M+", label: "Creator following" },
         { value: "3 wks", label: "Concept to launch" },
@@ -156,31 +156,31 @@ const ALL_CASE_STUDIES: readonly CaseStudy[] = [
     title: "A mental-health platform built around one promise: you are not alone.",
     year: "2026",
     summary:
-      "A support platform for people in a hard moment — somewhere to find a story, a tool, or a fast way to reach help. The design direction was the client's; our job was to build it into something steady and quick on the phones people actually open at 2am. Searchable stories of resilience, a low-pressure self check-in, light and dark reading modes, more than one language, and a get-help route that's never more than a tap away.",
+      "A support platform for people in a hard moment. Somewhere to find a story, a tool, or a fast way to reach help. The design was the client's; the build was ours: steady, quiet, and quick to load on the phones people reach for at 2am. Searchable stories of resilience, a low-pressure self check-in, light and dark reading modes, more than one language, and a Get help button that never sits more than a tap away.",
     tags: ["Development", "Accessibility", "Performance", "Nonprofit"],
     cover:
       "https://res.cloudinary.com/dud5owpai/image/upload/v1782633362/life-upside-view-website_x0ws31.png",
     coverAlt:
-      "Life Upside View mental-health platform by Greyform — the “You are not alone” homepage",
+      "Life Upside View mental-health platform by Greyform, showing the “You are not alone” homepage",
     liveUrl: "https://www.lifeupsideview.org",
     liveUrlLabel: "lifeupsideview.org",
     role: "Development",
     stack: ["Next.js", "Tailwind", "Vercel"],
     problem: {
       heading: "When someone is reaching out, every bit of friction is a reason to close the tab.",
-      body: "Life Upside View needed a home that could meet people at a low point — often anxious, often late at night, often on a slow connection — and get them to something useful without making them work for it. In this context the basics carry real weight: a page that stalls, a menu that's hard to scan, or a help link buried two clicks down isn't a minor flaw, it's a person who leaves before they find anything. The client had a clear vision for how it should look and feel. The brief to us was to make that vision real without letting it get heavy or hard to reach.",
+      body: "Life Upside View had to meet people at a low point. Often anxious, often late at night, often on a slow connection. And it had to get them to something useful without making them work for it. Here the basics carry real weight. A page that stalls, a menu that's hard to scan, a help link buried two clicks down: none of that is a small flaw. It's a person who leaves before they find anything. The client knew exactly how the site should look and feel. Our job was to make that real without letting it turn heavy or hard to reach.",
     },
     approach: {
-      heading: "Build the client's design faithfully — then make it fast, legible, and easy to get help from.",
-      body: "We worked directly with the client and implemented their design as specified, hand-coding it so the warmth of the original — the open imagery, the single steadying line, the calm spacing — survived the move from mockup to a live product without bloating. A persistent “Get help” route stays one tap from every screen. Light and dark modes let people read in whatever's easiest on the eyes in the moment, and a language toggle widens who the site can actually serve. Stories of resilience are searchable rather than buried, and the self check-in reads as a few honest questions instead of a clinical form. Throughout, the build is tuned to stay quick on the mid-range phones most of the audience is holding — because in a crisis, load time is part of the care.",
+      heading: "Build the client's design faithfully, then make it fast, legible, and easy to reach help from.",
+      body: "We worked directly with the client and built their design as specified, hand-coding it so the warmth of the original survived the move from mockup to live product. The open imagery, the single steadying line, the calm spacing, all of it intact and none of it heavy. A “Get help” route stays one tap from every screen. Light and dark modes let people read in whatever's easiest on the eyes that night, and a language toggle widens who the site can serve. Stories of resilience are searchable instead of buried, and the self check-in reads as a few honest questions rather than a clinical form. The whole build is tuned to stay quick on the mid-range phones most of the audience is holding, because in a hard moment, load time is part of the care.",
     },
     outcome: {
       heading: "A calm front door that does the hard part: getting people to help, fast.",
-      body: "The site launched true to the client's design while staying fast and accessible — readable in both themes, navigable in more than one language, and quick to surface a story, a tool, or a way to talk to someone. The pieces that matter most here all sit within a tap or two of anywhere on the site: the standing get-help route, the low-friction check-in, the searchable stories. Built to the client's spec, hand-built for speed.",
+      body: "The site launched true to the client's design and fast where it counts. Readable in both themes, usable in more than one language, and quick to surface a story, a tool, or a way to talk to someone. Everything that matters sits a tap or two from anywhere on the site: the standing Get help route, the low-pressure check-in, the searchable stories. Built to the client's brief, hand-built for speed.",
     },
-    // Role is honestly scoped to Development — the client led the design and we
+    // Role is honestly scoped to Development: the client led the design and we
     // implemented it. Stack assumes Greyform's standard hand-built setup; swap if
-    // it differs. Add a client quote here once cleared and the homepage strip +
+    // it differs. Add a client quote here once cleared and the homepage strip and
     // case-study quote light up automatically.
   },
 ];

@@ -36,7 +36,7 @@ const jetbrainsMono = JetBrains_Mono({
 const DEFAULT_TITLE = "Greyform · Web design & development studio, Lagos";
 const DEFAULT_DESCRIPTION =
   "Greyform is a Lagos-based web design and development studio. We build distinctive, performant websites for businesses, schools, and creators. Working globally.";
-const OG_ALT = "Greyform — web design & development studio, Lagos.";
+const OG_ALT = "Greyform. Web design and development studio, Lagos.";
 
 // Google Search Console verification token. Not a secret — it ships in the
 // rendered HTML by design. Env var overrides the committed value so a future

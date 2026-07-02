@@ -61,7 +61,7 @@ export default function Error({
           variants={line}
           className="mt-10 max-w-[52ch] text-fluid-lg leading-relaxed text-muted"
         >
-          A small thing, almost certainly. Try the page again — and if it
+          A small thing, almost certainly. Try the page again. If it
           keeps happening, tell us at{" "}
           <a
             href="mailto:hello@greyform.org"

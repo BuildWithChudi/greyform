@@ -82,7 +82,7 @@ export default function GlobalError({
               color: "#A5A5A5",
             }}
           >
-            The site hit an unexpected error. Try again — and if it keeps
+            The site hit an unexpected error. Try again. If it keeps
             happening, email{" "}
             <a
               href="mailto:hello@greyform.org"

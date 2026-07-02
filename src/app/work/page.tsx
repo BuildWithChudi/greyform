@@ -5,7 +5,7 @@ import { JsonLd, breadcrumbSchema } from "@/components/JsonLd";
 const DESCRIPTION =
   "Selected case studies from Greyform. Every site is live, in production, and built from scratch. Web design and development for businesses, schools, and creators.";
 
-const OG_ALT = "Selected work from Greyform — case studies.";
+const OG_ALT = "Selected work from Greyform. Case studies.";
 
 export const metadata: Metadata = {
   title: "Work",

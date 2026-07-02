@@ -10,7 +10,7 @@ const PROCESS_STEPS: { num: string; label: string; body: string }[] = [
   {
     num: "01",
     label: "Discover",
-    body: "A short, focused call. We map who the site is for, what success looks like in plain language, and the constraints that actually matter — budget, timeline, internal team. You leave with a one-page brief whether or not we work together.",
+    body: "A short, focused call. We map who the site is for, what success looks like in plain language, and the constraints that actually matter: budget, timeline, internal team. You leave with a one-page brief whether or not we work together.",
   },
   {
     num: "02",
@@ -20,7 +20,7 @@ const PROCESS_STEPS: { num: string; label: string; body: string }[] = [
   {
     num: "03",
     label: "Build",
-    body: "Hand-coded in Next.js and Tailwind, on a staging URL from day one. You watch it come together as we go — no big reveal at the end, no surprises. Two structured rounds of revisions are part of the scope.",
+    body: "Hand-coded in Next.js and Tailwind, on a staging URL from day one. You watch it come together as we go. No big reveal at the end, no surprises. Two structured rounds of revisions are part of the scope.",
   },
   {
     num: "04",
@@ -30,7 +30,7 @@ const PROCESS_STEPS: { num: string; label: string; body: string }[] = [
   {
     num: "05",
     label: "Support",
-    body: "Thirty days of post-launch care included on every build — small fixes, copy edits, the bits a site always needs after going live. Ongoing engineering support is available afterwards on a light retainer.",
+    body: "Thirty days of post-launch care on every build: small fixes, copy edits, the bits a site always needs after going live. Ongoing engineering support is available afterwards on a light retainer.",
   },
 ];
 
@@ -135,7 +135,7 @@ function ProcessSection() {
             Five steps. <em className="italic text-muted">No theatre.</em>
           </h2>
           <p className="mt-8 max-w-[36ch] text-fluid-base leading-relaxed text-muted">
-            The same shape on every engagement — sized to scope, never skipped.
+            The same shape on every engagement, sized to scope, never skipped.
             You see real work from week one.
           </p>
         </motion.div>

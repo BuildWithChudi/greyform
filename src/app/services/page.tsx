@@ -11,7 +11,7 @@ import { SERVICES_FAQS } from "@/data/faqs";
 const DESCRIPTION =
   "Three ways to work with Greyform: custom websites, redesigns, and web applications. Bespoke design and development, built from scratch and performance-first. Lagos-based, working globally.";
 
-const OG_ALT = "Greyform services — custom websites, redesigns, web applications.";
+const OG_ALT = "Greyform services: custom websites, redesigns, web applications.";
 
 export const metadata: Metadata = {
   title: "Services",

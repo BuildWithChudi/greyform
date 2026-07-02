@@ -267,7 +267,7 @@ export function caseStudySchema(args: {
     "@context": "https://schema.org",
     "@type": "CreativeWork",
     "@id": `${SITE_URL}/work/${args.slug}`,
-    name: `${args.client} — ${args.title}`,
+    name: `${args.client}: ${args.title}`,
     headline: args.title,
     description: args.summary,
     url: `${SITE_URL}/work/${args.slug}`,

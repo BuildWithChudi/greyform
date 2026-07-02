@@ -23,7 +23,7 @@ const headingLine: Variants = {
 
 const followUp = [
   "We sell results.",
-  "A site that loads fast, looks like itself, ranks well, and earns its place on every device in your client's pocket.",
+  "A site that loads fast, looks like itself, ranks well, and earns its place on every screen it lands on.",
   "Anything less is just a brochure.",
 ];
 

@@ -5,7 +5,7 @@ import { JsonLd, breadcrumbSchema } from "@/components/JsonLd";
 const DESCRIPTION =
   "Tell us about your project. Four short steps, two minutes. We reply within 48 hours with a clear next step. Greyform · Web design & development studio.";
 
-const OG_ALT = "Start a project with Greyform — four short steps, two minutes.";
+const OG_ALT = "Start a project with Greyform. Four short steps, two minutes.";
 
 export const metadata: Metadata = {
   title: "Start a Project",
